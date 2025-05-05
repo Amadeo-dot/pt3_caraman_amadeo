@@ -14,13 +14,15 @@ class PaginaEquips extends StatefulWidget {
 }
 
 class _PaginaEquip extends State<PaginaEquips> {
-    List<Equip> equips = [];
+  
+  List<Equip> equips = [];
 
-    @override
-    void initState() {
-      super.initState();
-      _fetchPersonatges();
-    }
+  @override
+  void initState() {
+    super.initState();
+    _fetchPersonatges();
+  }
+  
   Future<void> _fetchPersonatges() async {
     final urlExt = Uri.parse("https://vidalibarraquer.net/android/sports/${widget.equip}.json");
     final responseExt = await http.get(urlExt);
@@ -41,7 +43,7 @@ class _PaginaEquip extends State<PaginaEquips> {
         final Map<String, dynamic> jsonMapInt = jsonDecode(responseInt.body);
         List<dynamic> teamsInt = jsonMapInt['data'];
 
-        equipsTots.add(Equip.fromJson(item, teamsInt));
+        equipsTots.add(Equip.fromJson(item, teamsInt, widget.equip));
       }
       
     }
@@ -61,7 +63,7 @@ class _PaginaEquip extends State<PaginaEquips> {
               itemBuilder: (context, index) {
                 var team = equips[index];
                 return ListTile(
-                  leading: Image.network("https://vidalibarraquer.net/android/sports/${widget.equip}/${team.team_abbreviation.toLowerCase()}.png", width: 50, height: 50), 
+                  leading: Image.network(team.imatge, width: 50, height: 50), 
                   title: Text(team.team_name),
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => InformacioEquip(team:team, equip: widget.equip)) );

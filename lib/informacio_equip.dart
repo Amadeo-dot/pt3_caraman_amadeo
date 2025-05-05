@@ -4,7 +4,7 @@ import 'Equips/equip.dart';
 class InformacioEquip extends StatelessWidget {
   final Equip team;
   final String equip;
-  InformacioEquip({required this.team, required this.equip});
+  const InformacioEquip({super.key, required this.team, required this.equip});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class InformacioEquip extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Image.network("https://vidalibarraquer.net/android/sports/$equip/${team.team_abbreviation.toLowerCase()}.png", width: 400, height: 400),
+            Image.network(team.imatge, width: 400, height: 400),
             SizedBox(height: 20),
             Text(
               "Titulos: ${team.titles}",
