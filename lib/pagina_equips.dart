@@ -34,18 +34,13 @@ class _PaginaEquip extends State<PaginaEquips> {
     for (var item in teamsExt) {
       String abrevation = item['team_abbreviation'];
       debugPrint(abrevation);
-      if(abrevation == "DC"){
+      final urlInt = Uri.parse("https://vidalibarraquer.net/android/sports/${widget.equip}/${abrevation.toLowerCase()}.json");
+      final responseInt = await http.get(urlInt);
 
-      } else {
-        final urlInt = Uri.parse("https://vidalibarraquer.net/android/sports/${widget.equip}/${abrevation.toLowerCase()}.json");
-        final responseInt = await http.get(urlInt);
+      final Map<String, dynamic> jsonMapInt = jsonDecode(responseInt.body);
+      List<dynamic> teamsInt = jsonMapInt['data'];
 
-        final Map<String, dynamic> jsonMapInt = jsonDecode(responseInt.body);
-        List<dynamic> teamsInt = jsonMapInt['data'];
-
-        equipsTots.add(Equip.fromJson(item, teamsInt, widget.equip));
-      }
-      
+      equipsTots.add(Equip.fromJson(item, teamsInt, widget.equip));
     }
     setState(() {
       equips = equipsTots;
